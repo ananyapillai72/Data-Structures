@@ -1,0 +1,174 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL, *newnode, *temp;
+int count=0;
+
+void insertnode()
+{
+    newnode = (struct node *)malloc(sizeof(struct node));
+    scanf("%d", &newnode -> data);
+    newnode->next=NULL;
+    if (head == NULL)
+    {
+        head = temp = newnode;
+        printf("\n Node created");
+    }
+    else
+    {
+        temp->next = newnode;
+        temp= newnode;
+        printf("\n Node created");
+    }
+}
+void deletebeg()
+{
+    struct node *ptr;
+    ptr=head;
+    head=head->next;
+    free(ptr);
+}
+
+void deletelast()
+{
+    struct node *prev;
+    temp=head;
+    while(temp->next != NULL)
+    {
+        prev=temp;
+        temp=temp->next;
+    }
+    if(temp== head)
+    {
+        head = NULL;
+        free(temp);
+    }
+    else
+    {
+        prev->next=0;
+        free(temp);
+    }
+}
+
+void deleteafter()
+{
+    struct node *temp1, *prev1;
+    int k, i=1;
+    scanf("%d", &k);
+    temp1=head;
+    while(i<=k)
+    {
+        prev1=temp1;
+        temp1=temp1->next;
+        i++;
+    }
+    prev1->next=temp1->next;
+    free(temp1);
+}
+
+void insertafter()
+{
+    printf("Enter the position");
+    int k;
+    k=scanf("%d", &k);
+    if(k>count)
+    {
+        printf("Enter valid position");
+    }
+    else
+    {
+        int i=1;
+        temp=head;
+        while(i<=k)
+        {
+            temp = temp->next;
+            i++;
+        }
+        newnode = (struct node *)malloc(sizeof(struct node));
+        scanf("%d", &newnode -> data);
+        newnode->next= temp->next;
+        temp->next=newnode;
+
+    }
+}
+
+void printlist()
+{
+    newnode=head;
+    while(newnode != NULL)
+    {
+        printf(" %d ", newnode->data);
+        newnode=newnode->next;
+        count++;
+    }
+}
+
+void insertbefore()
+{
+    struct node *prev;
+    int g,i=1;
+    printf("Enter the position to be inserted before");
+    scanf("%d", &g);
+    temp=head;
+    while(i<g)
+    {
+        prev=temp;
+        temp=temp->next;
+        i++;
+    }
+    newnode = (struct node *)malloc(sizeof(struct node));
+    scanf("%d", &newnode -> data);
+    newnode->next=prev->next;
+    prev->next=newnode;
+
+}
+
+
+int main()
+{
+    int a;
+    int i=0;
+    while(i!=1)
+    {
+        printf("\n What do you want to do");
+        printf("\n 1) Insertion \n 2) Deletion from beginning \n 3)Print \n 4)Exit \n 5) Delete last \n 6) Insert after a position \n 7) Insert before \n 8) Delete after");
+        scanf(" \n %d", &a);
+        switch(a)
+        {
+        case 1:
+            insertnode();
+            break;
+        case 2:
+            deletebeg();
+            break;
+        case 3:
+            printlist();
+            break;
+        case 4:
+            i=1;
+            break;
+        case 5:
+            deletelast();
+            break;
+        case 6:
+            insertafter();
+            break;
+        case 7:
+            insertbefore();
+            break;
+        case 8:
+            deleteafter();
+            break;
+        default:
+            printf("Enter a valid option");
+            break;
+    }
+
+    }
+
+}
